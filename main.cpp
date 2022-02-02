@@ -149,6 +149,38 @@ void eval_rbegin_rend(){
 	cout << endl;
 }
 
+void eval_clear(){
+    map<int, int> a;
+    ft::map<int, int> b;
+
+    for (int i = 0; i < 10; i++){
+        int r = rand() % 100;
+        a.insert(make_pair(r, r));
+        b.insert(ft::make_pair(r, r));
+    }
+    a.clear();
+    b.clear();
+
+}
+
+
+void eval_count()
+{
+    map<int, int> a;
+    ft::map<int, int> b;
+    int r;
+    for (int i = 0; i < 10; i++){
+        r = rand() % 100;
+        a.insert(make_pair(r, r));
+        b.insert(ft::make_pair(r, r));
+    }
+    std::cout << a.count(5) << "\n";
+    std::cout << b.count(5) << "\n";
+    std::cout << a.count(r) << "\n";
+    std::cout << b.count(r) << "\n";
+
+}
+
 int main()
 {
 //    srand(time(NULL));
@@ -172,6 +204,6 @@ int main()
 //	 cout << (*i2).first << endl;
 //    cout << b.size() << endl;
 //	cout << a[2] << endl;
-    eval_rbegin_rend();
-
+//    eval_rbegin_rend();
+    eval_count();
 }

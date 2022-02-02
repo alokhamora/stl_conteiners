@@ -60,12 +60,12 @@ namespace ft{
 						pointer operator->(){
 							return i.operator->();
 						}
-						reverse_iterator operator+(ptrdiff_t a){
+						reverse_iterator operator+(std::ptrdiff_t a){
 							reverse_iterator b = *this;
 							b.i -= a;
 							return b;
 						}
-						reverse_iterator operator-(ptrdiff_t a){
+						reverse_iterator operator-(std::ptrdiff_t a){
 							reverse_iterator b = *this;
 							b.i += a;
 							return b;
@@ -82,11 +82,11 @@ namespace ft{
 						bool operator>=(reverse_iterator a){
 							return i <= a.i;
 						}
-						reverse_iterator operator+=(ptrdiff_t a){
+						reverse_iterator operator+=(std::ptrdiff_t a){
 							i -= a;
 							return *this;
 						}
-						reverse_iterator operator-=(ptrdiff_t a){
+						reverse_iterator operator-=(std::ptrdiff_t a){
 							i += a;
 							return *this;
 						}

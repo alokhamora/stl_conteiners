@@ -391,8 +391,8 @@ namespace ft
 		const_iterator find (const key_type& k) const{
 			tree<ft::pair<Key, T> > *tmp;
 			tmp = tr;
-			while (tmp != NULL && tmp->first != k){
-				if (comp(tmp->first, k))
+			while (tmp != NULL && tmp->pair->first != k){
+				if (comp(tmp->pair->first, k))
 					tmp = tmp->right;
 				else
 					tmp = tmp->left;
@@ -408,35 +408,95 @@ namespace ft
 		};
 
 		void clear(){
+            pure(tr);
+            tr = NULL;
+            _size = 0;
 
 		};
+
+        void pure(tree<ft::pair<Key, T> > *p){
+            if (!p)
+                return ;
+            tree<ft::pair<Key, T> > *tmp1 = p->left;
+            tree<ft::pair<Key, T> > *tmp2 = p->right;
+            alloc.deallocate(p->pair, 1);
+            pure(tmp1);
+            pure(tmp2);
+        }
+
 		size_t count (const key_type& k) const{
-
+            const_iterator result = find(k);
+            if (result != this->end())
+                return 1;
+            return 0;
 		};
-		key_compare key_comp() const{
 
+		key_compare key_comp() const{
+            return comp;
 		};
 		value_compare value_comp() const{
-
+            return value_compare(comp);
 		};
 		iterator lower_bound (const key_type& k){
-
+            iterator it = begin();
+            while (it != end()){
+                if (!comp(it->first, k))
+                    break;
+                ++it;
+            }
+            return it;
 		};
 		const_iterator lower_bound (const key_type& k) const{
-
+            const_iterator it = begin();
+            while (it != end()){
+                if (!comp(it->first, k))
+                    break;
+                ++it;
+            }
+            return it;
 		};
 		iterator upper_bound (const key_type& k){
-
+            iterator it = begin();
+            while (it != end()){
+                if (comp(k, it->first))
+                    break;
+                ++it;
+            }
+            return it;
 		};
 		const_iterator upper_bound (const key_type& k) const{
-
+            const_iterator it = begin();
+            while (it != end()){
+                if (comp(k, it->first))
+                    break;
+                ++it;
+            }
+            return it;
 		};
-		pair<const_iterator,const_iterator> equal_range (const key_type& k)
+		pair<const_iterator,iterator> equal_range (const key_type& k)
 		const{
-
+            iterator it = upper_bound(k);
+            if (it != begin()){
+                --it;
+                if (comp(it->first, k) || comp(k, it->first))
+                    ++it;
+            }
+            iterator next(it);
+            if (it != end())
+                ++next;
+            return make_pair<iterator, iterator>(it, next);
 		};
-		pair<iterator,iterator> equal_range (const key_type& k){
-
+		pair<iterator, const_iterator> equal_range (const key_type& k){
+            const_iterator it = upper_bound(k);
+            if (it != begin()){
+                --it;
+                if (comp(it->first, k) || comp(k, it->first))
+                    ++it;
+            }
+            iterator next(it);
+            if (it != end())
+                ++next;
+            return make_pair<iterator, const_iterator>(it, next);
 		};
 		const_iterator begin() const{
 			tree<ft::pair<Key, T> > *tmp;
@@ -476,7 +536,7 @@ namespace ft
 				return ((*result).second);
 			}
 			else{
-				return this->insert(make_pair(k, mapped_type())).second;
+				return (*(this->insert(make_pair(k, mapped_type())))).second;
 			}
         };
 		bool empty() const
