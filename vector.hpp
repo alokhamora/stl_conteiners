@@ -310,6 +310,7 @@ namespace ft {
 	public:
 		explicit vector(const allocator_type &alloc = allocator_type())
 		{
+			this->alloc = alloc;
 			ptr = NULL;
 			cpct = 0;
 			size_i = 0;
@@ -318,6 +319,7 @@ namespace ft {
 		explicit vector(size_type n, const value_type &val = value_type(),
 						const allocator_type &alloc = allocator_type())
 		{
+			this->alloc = alloc;
 			cpct = 0;
 			ptr = NULL;
 			size_i = 0;
@@ -333,6 +335,7 @@ namespace ft {
 		vector(InputIterator first, InputIterator last,
 			   const allocator_type &alloc = allocator_type())
 		{
+			this->alloc = alloc;
 			ptr = NULL;
 			cpct = 0;
 			size_i = 0;
@@ -551,7 +554,7 @@ namespace ft {
 			ptr = NULL;
 			cpct = 0;
 			size_i = 0;
-			int i = 0;
+			size_type i = 0;
 			while (i < n) {
 				push_back(val);
 				i++;

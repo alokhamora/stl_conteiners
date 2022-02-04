@@ -233,7 +233,7 @@ void eval_reserve(){
 	std::cout << "<<<<<<<<<<<RESERVE>>>>>>>>>>>>" << "\n";
 	cout << "STD:\n";
 
-	int sz1;
+	unsigned long sz1;
 
 	vector<int> foo1;
 	sz1 = foo1.capacity();
@@ -261,7 +261,7 @@ void eval_reserve(){
 
 	cout << "FT:\n";
 
-	int sz;
+	unsigned long sz;
 
 	ft::vector<int> foo;
 	sz = foo.capacity();
@@ -301,8 +301,6 @@ void eval_assign(){
 
 	second.assign (it,first.end()-1); // the 5 central values of first
 
-	int myints[] = {1776,7,4};
-	third.assign (myints,myints+3);   // assigning from array.
 
 	std::cout << "Size of std first: " << int (first.size()) << '\n';
 	std::cout << "Size of std second: " << int (second.size()) << '\n';
@@ -319,8 +317,6 @@ void eval_assign(){
 
 	second1.assign(it1,first1.end()-1); // the 5 central values of first
 
-	int myints1[] = {1776,7,4};
-	third1.assign (myints,myints+3);   // assigning from array.
 
 	std::cout << "Size of ft first: " << int (first1.size()) << '\n';
 	std::cout << "Size of ft second: " << int (second1.size()) << '\n';

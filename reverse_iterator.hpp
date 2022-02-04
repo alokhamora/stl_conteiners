@@ -39,7 +39,7 @@ namespace ft{
 							return *this;
 						}
 						reverse_iterator operator--(int){
-							reverse_iterator a = i;
+							reverse_iterator a(i);
 							i++;
 							return a;
 						}

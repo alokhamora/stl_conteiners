@@ -428,17 +428,6 @@ namespace ft
 			pure(p->right);
 			alloc.deallocate(p->pair, 1);
 			p = NULL;
-//			tree<ft::pair<Key, T> > *tmp1 = NULL;
-//			tree<ft::pair<Key, T> > *tmp2 = NULL;
-//			if (p->left)
-//				tmp1 = p->left;
-//			if (p->right)
-//             	tmp2 = p->right;
-//            alloc.deallocate(p->pair, 1);
-//			if (tmp1)
-//            	pure(tmp1);
-//			if (tmp2)
-//            	pure(tmp2);
         }
 
 		size_t count (const key_type& k) const{
@@ -525,22 +514,22 @@ namespace ft
 		reverse_iterator rbegin(){
 			tree<ft::pair<Key, T> > *tmp;
 			tmp = tr;
-			while (tmp->left != NULL)
-				tmp = tmp->left;
+			while (tmp->right != NULL)
+				tmp = tmp->right;
 			return reverse_iterator(tmp);
 		};
 		const_reverse_iterator rbegin() const{
 			tree<ft::pair<Key, T> > *tmp;
 			tmp = tr;
-			while (tmp->left != NULL)
-				tmp = tmp->left;
+			while (tmp->right != NULL)
+				tmp = tmp->right;
 			return const_reverse_iterator(tmp);
 		};
 		iterator find (const key_type& k){
 			tree<ft::pair<Key, T> > *tmp;
 			tmp = tr;
-			while (tmp != NULL && tmp->first != k){
-				if (comp(tmp->first, k))
+			while (tmp != NULL && tmp->pair->first != k){
+				if (comp(tmp->pair->first, k))
 					tmp = tmp->right;
 				else
 					tmp = tmp->left;
@@ -569,6 +558,7 @@ namespace ft
 			return alloc;
 		}
 		iterator insert (iterator position, const value_type& val){
+			position.get_ptr();
 		    return insert(val).first;
 		};
 		template <class InputIterator>
