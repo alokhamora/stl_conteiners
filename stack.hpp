@@ -13,7 +13,7 @@ namespace ft {
 	protected:
 		Container c;
 	public:
-		explicit stack(const Container & = Container());
+		explicit stack(const Container & = Container()){};
 
 		bool empty() const
 		{ return c.empty(); }

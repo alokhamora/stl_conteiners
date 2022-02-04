@@ -80,6 +80,12 @@ namespace ft
 		tree *prev;
 		tree *left;
 		tree *right;
+		tree(){
+			pair = NULL;
+			prev = NULL;
+			left = NULL;
+			right = NULL;
+		}
 	};
 	template <class T>
 	struct less : std::binary_function<T, T, bool>
@@ -415,13 +421,24 @@ namespace ft
 		};
 
         void pure(tree<ft::pair<Key, T> > *p){
-            if (!p)
+
+			if (!p)
                 return ;
-            tree<ft::pair<Key, T> > *tmp1 = p->left;
-            tree<ft::pair<Key, T> > *tmp2 = p->right;
-            alloc.deallocate(p->pair, 1);
-            pure(tmp1);
-            pure(tmp2);
+			pure(p->left);
+			pure(p->right);
+			alloc.deallocate(p->pair, 1);
+			p = NULL;
+//			tree<ft::pair<Key, T> > *tmp1 = NULL;
+//			tree<ft::pair<Key, T> > *tmp2 = NULL;
+//			if (p->left)
+//				tmp1 = p->left;
+//			if (p->right)
+//             	tmp2 = p->right;
+//            alloc.deallocate(p->pair, 1);
+//			if (tmp1)
+//            	pure(tmp1);
+//			if (tmp2)
+//            	pure(tmp2);
         }
 
 		size_t count (const key_type& k) const{
@@ -440,7 +457,7 @@ namespace ft
 		iterator lower_bound (const key_type& k){
             iterator it = begin();
             while (it != end()){
-                if (!comp(it->first, k))
+                if (!comp(it.get_ptr()->pair->first, k))
                     break;
                 ++it;
             }
@@ -458,7 +475,7 @@ namespace ft
 		iterator upper_bound (const key_type& k){
             iterator it = begin();
             while (it != end()){
-                if (comp(k, it->first))
+                if (comp(k, it.get_ptr()->pair->first))
                     break;
                 ++it;
             }
@@ -531,14 +548,8 @@ namespace ft
 			return iterator(tmp);
 		};
 		mapped_type& operator[](const key_type& k){
-			iterator result = find(k);
-			if (result != this->end()){
-				return ((*result).second);
-			}
-			else{
-				return (*(this->insert(make_pair(k, mapped_type())))).second;
-			}
-        };
+			return (*((this->insert(make_pair(k,mapped_type()))).first)).second;
+		};
 		bool empty() const
 		{
 			if (tr == NULL)
@@ -588,10 +599,12 @@ namespace ft
 					iterator iter(ptr);
 					return make_pair(iter, false);
 				}
-				if (comp(ptr->pair->first, val.first))
+				if (comp(ptr->pair->first, val.first)){
 					ptr = ptr->right;
-				else
+				}
+				else{
 					ptr = ptr->left;
+				}
 			}
 			tree<value_type> *n = new (tree<value_type>);
 			n->pair = alloc.allocate(1);
