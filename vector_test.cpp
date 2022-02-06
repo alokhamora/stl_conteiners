@@ -486,6 +486,48 @@ void eval_erase1(){
 	cout << "\n";
 }
 
+void eval_swap(){
+	std::cout << "<<<<<<<<<<SWAP>>>>>>>>>>>" << "\n";
+	ft::vector<int> vec1;
+	for (int i = 0; i < 10; i++)
+		vec1.push_back(i);
+	cout << "Vector 1:\n";
+	ft::vector<int>::const_iterator t = vec1.begin();
+	while (t != vec1.end())
+	{
+		cout << *t << " ";
+		t++;
+	}
+
+	ft::vector<int> vec2;
+	for (int i = 10; i < 20; i++)
+		vec2.push_back(i);
+	cout << "\nVector 2:\n";
+	ft::vector<int>::const_iterator t0 = vec2.begin();
+	while (t0 != vec2.end())
+	{
+		cout << *t0 << " ";
+		t0++;
+	}
+	cout << "\nSWAP\n";
+	cout << "Vector 1:\n";
+	vec1.swap(vec2);
+	ft::vector<int>::const_iterator t1 = vec1.begin();
+	while (t1 != vec1.end())
+	{
+		cout << *t1 << " ";
+		t1++;
+	}
+	cout << "\nVector 2:\n";
+	ft::vector<int>::const_iterator t2 = vec2.begin();
+	while (t2 != vec2.end())
+	{
+		cout << *t2 << " ";
+		t2++;
+	}
+
+}
+
 int main()
 {
 	cout << ">>>>>>>>>>>>VECTOR<<<<<<<<<<<<\n\n";
@@ -504,4 +546,5 @@ int main()
 	eval_insert3();
 	eval_erase();
 	eval_erase1();
+	eval_swap();
 }
